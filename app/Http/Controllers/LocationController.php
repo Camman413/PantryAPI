@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\LocationResource;
 use App\Models\Location;
+use App\Repositories\LocationRepository;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -12,9 +14,17 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private LocationRepository $locationRepository;
+
+    public function __construct(LocationRepository $locationRepository)
+    {
+        $this->locationRepository = $locationRepository;
+    }
+
     public function index()
     {
-        //
+        return LocationResource::collection($this->locationRepository->getAllItems());
     }
 
     /**
@@ -25,7 +35,11 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $details = $request->only([
+            'name'
+        ]);
+
+        return new LocationResource($this->locationRepository->createItem($details));
     }
 
     /**
@@ -36,7 +50,7 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        //
+        return new LocationResource($this->locationRepository->getItemById($location->id));
     }
 
     /**
@@ -48,7 +62,11 @@ class LocationController extends Controller
      */
     public function update(Request $request, Location $location)
     {
-        //
+        $details = $request->only([
+            'name'
+        ]);
+
+        return new LocationResource($this->locationRepository->updateItem($location->id, $details));
     }
 
     /**
@@ -59,6 +77,6 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
-        //
+        $this->locationRepository->deleteItem($location->id);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\StockTypeController;
 use Illuminate\Http\Request;
@@ -23,5 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResources([
     'recipes' => RecipeController::class,
     'stocktypes' => StockTypeController::class,
-    'ingredients' => IngredientController::class
+    'ingredients' => IngredientController::class,
+    'locations' => LocationController::class,
 ]);
