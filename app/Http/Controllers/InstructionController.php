@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InstructionResource;
 use App\Models\Instruction;
+use App\Repositories\InstructionRepository;
 use Illuminate\Http\Request;
 
 class InstructionController extends Controller
@@ -12,9 +14,17 @@ class InstructionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private InstructionRepository $instructionRepository;
+
+    public function __construct(InstructionRepository $instructionRepository)
+    {
+        $this->instructionRepository = $instructionRepository;
+    }
+    
     public function index()
     {
-        //
+        return InstructionResource::collection($this->instructionRepository->getAllItems());
     }
 
     /**
@@ -25,7 +35,16 @@ class InstructionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $details = $request->only([
+            'recipe_id',
+            'rank',
+            'ingredient_id',
+            'ingredientAmount', 
+            'instrument_id',
+            'description',
+        ]);
+
+        return new InstructionResource($this->instructionRepository->createItem($details));
     }
 
     /**
@@ -36,7 +55,7 @@ class InstructionController extends Controller
      */
     public function show(Instruction $instruction)
     {
-        //
+        return new InstructionResource($this->instructionRepository->getItemById($instruction->id));
     }
 
     /**
@@ -48,7 +67,16 @@ class InstructionController extends Controller
      */
     public function update(Request $request, Instruction $instruction)
     {
-        //
+        $details = $request->only([
+            'recipe_id',
+            'rank',
+            'ingredient_id',
+            'ingredientAmount', 
+            'instrument_id',
+            'description',
+        ]);
+
+        return new InstructionResource($this->instructionRepository->updateItem($instruction->id, $details));
     }
 
     /**
@@ -59,6 +87,6 @@ class InstructionController extends Controller
      */
     public function destroy(Instruction $instruction)
     {
-        //
+        $this->instructionRepository->deleteItem($instruction->id);
     }
 }

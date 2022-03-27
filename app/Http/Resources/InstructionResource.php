@@ -2,7 +2,11 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Recipe;
+use App\Models\Ingredient;
+use App\Models\Instrument;
 use Illuminate\Http\Resources\Json\JsonResource;
+
 
 class InstructionResource extends JsonResource
 {
@@ -14,6 +18,14 @@ class InstructionResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'recipe' => new RecipeResource(Recipe::findOrFail($this->recipe_id)),
+            'rank' => $this->rank,
+            'ingredient_id' => new IngredientResource(Ingredient::findOrFail($this->ingredient_id)),
+            'ingredientAmount' => $this->ingredientAmount,
+            'instrument_id' => new InstrumentResource(Instrument::findOrFail($this->instrument_id)),
+            'description' => $this->description
+        ];
     }
 }

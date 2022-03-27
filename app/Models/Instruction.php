@@ -18,4 +18,13 @@ class Instruction extends Model
     public function instrument(){
         return $this->belongsTo(Instrument::class);
     }
+
+    protected $fillable = [
+        'recipe_id',
+        'rank',
+        'ingredient_id',
+        'ingredientAmount', 
+        'instrument_id',
+        'description',
+    ];
 }
