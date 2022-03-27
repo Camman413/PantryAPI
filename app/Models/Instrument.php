@@ -14,4 +14,6 @@ class Instrument extends Model
     public function Location(){
         return $this->belongsTo(Location::class);
     }
+
+    protected $fillable = ['name', 'location_id'];
 }

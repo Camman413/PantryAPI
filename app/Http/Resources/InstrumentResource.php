@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Location;
 
 class InstrumentResource extends JsonResource
 {
@@ -14,6 +15,10 @@ class InstrumentResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'location' => new LocationResource(Location::findOrFail($this->location_id))
+        ];
     }
 }

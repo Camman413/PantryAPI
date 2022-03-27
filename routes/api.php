@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\InstrumentController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\StockTypeController;
@@ -26,4 +27,5 @@ Route::apiResources([
     'stocktypes' => StockTypeController::class,
     'ingredients' => IngredientController::class,
     'locations' => LocationController::class,
+    'instruments' => InstrumentController::class,
 ]);

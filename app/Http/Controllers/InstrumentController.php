@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InstrumentResource;
 use App\Models\Instrument;
+use App\Repositories\InstrumentRepository;
 use Illuminate\Http\Request;
 
 class InstrumentController extends Controller
@@ -12,9 +14,17 @@ class InstrumentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private InstrumentRepository $instrumentRepository;
+
+    public function __construct(InstrumentRepository $instrumentRepository)
+    {
+        $this->instrumentRepository = $instrumentRepository;
+    }
+
     public function index()
     {
-        //
+        return InstrumentResource::collection($this->instrumentRepository->getAllItems());
     }
 
     /**
@@ -25,7 +35,12 @@ class InstrumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $details = $request->only([
+            'name',
+            'location_id',
+        ]);
+
+        return new InstrumentResource($this->instrumentRepository->createItem($details));
     }
 
     /**
@@ -36,7 +51,7 @@ class InstrumentController extends Controller
      */
     public function show(Instrument $instrument)
     {
-        //
+        return new InstrumentResource($this->instrumentRepository->getItemById($instrument->id));
     }
 
     /**
@@ -48,7 +63,12 @@ class InstrumentController extends Controller
      */
     public function update(Request $request, Instrument $instrument)
     {
-        //
+        $details = $request->only([
+            'name',
+            'location_id',
+        ]);
+
+        return new InstrumentResource($this->instrumentRepository->updateItem($instrument->id, $details));
     }
 
     /**
@@ -59,6 +79,6 @@ class InstrumentController extends Controller
      */
     public function destroy(Instrument $instrument)
     {
-        //
+        $this->instrumentRepository->deleteItem($instrument->id);
     }
 }
