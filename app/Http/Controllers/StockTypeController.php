@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\StockTypeResource;
+use App\Models\stockType;
 use App\Repositories\stockTypeRepository;
 use Illuminate\Http\Request;
 
@@ -47,11 +48,9 @@ class StockTypeController extends Controller
      * @param  \App\Models\stockType  $stockType
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(stockType $stockType)
     {
-        $id = $request->route('stocktype');
-
-        return new StockTypeResource($this->stockTypeRepository->getItemById($id));
+        return new StockTypeResource($this->stockTypeRepository->getItemById($stockType->id));
     }
 
     /**
@@ -61,15 +60,13 @@ class StockTypeController extends Controller
      * @param  \App\Models\stockType  $stockType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(stocktype $stockType, Request $request)
     {
-        $id = $request->route('stocktype');
-
         $details = $request->only([
             'name'
         ]);
 
-        return new StockTypeResource($this->stockTypeRepository->updateItem($id, $details));
+        return new StockTypeResource($this->stockTypeRepository->updateItem($stockType->id, $details));
 
     }
 
@@ -79,10 +76,8 @@ class StockTypeController extends Controller
      * @param  \App\Models\stockType  $stockType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(stockType $stockType)
     {
-        $id = $request->route('stocktype');
-
-        $this->stockTypeRepository->deleteItem($id);
+        $this->stockTypeRepository->deleteItem($stockType->id);
     }
 }

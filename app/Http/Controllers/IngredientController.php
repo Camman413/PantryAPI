@@ -50,11 +50,9 @@ class IngredientController extends Controller
      * @param  \App\Models\Ingredient  $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(Ingredient $ingredient)
     {
-        $id = $request->route('ingredient');
-
-        return new IngredientResource($this->ingredientRepository->getItemById($id));
+        return new IngredientResource($this->ingredientRepository->getItemById($ingredient->id));
     }
 
     /**
@@ -64,17 +62,15 @@ class IngredientController extends Controller
      * @param  \App\Models\Ingredient  $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Ingredient $ingredient, Request $request)
     {
-        $id = $request->route('ingredient');
-
         $details = $request->only([
             'name',
             'stock',
             'stock_type_id'
         ]);
 
-        return new IngredientResource($this->ingredientRepository->updateItem($id, $details));
+        return new IngredientResource($this->ingredientRepository->updateItem($ingredient->id, $details));
     }
 
     /**
@@ -83,10 +79,8 @@ class IngredientController extends Controller
      * @param  \App\Models\Ingredient  $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Ingredient $ingredient)
     {
-        $id = $request->route('ingredient');
-
-        $this->ingredientRepository->deleteItem($id);
+        $this->ingredientRepository->deleteItem($ingredient->id);
     }
 }

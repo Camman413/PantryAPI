@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\RecipeResource;
+use App\Models\Recipe;
 use App\Repositories\RecipeRepository;
 use Illuminate\Http\Request;
 
@@ -46,10 +47,9 @@ class RecipeController extends Controller
      * @param  \App\Models\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(Recipe $recipe)
     {
-        $id = $request->route('recipe');
-        return new RecipeResource($this->recipeRepository->getItemById($id));
+        return new RecipeResource($this->recipeRepository->getItemById($recipe->id));
     }
 
     /**
@@ -59,15 +59,13 @@ class RecipeController extends Controller
      * @param  \App\Models\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Recipe $recipe, Request $request)
     {
-        $id = $request->route('recipe');
-
         $details = $request->only([
             'name'
         ]);
 
-        return new RecipeResource($this->recipeRepository->updateItem($id, $details));
+        return new RecipeResource($this->recipeRepository->updateItem($recipe->id, $details));
     }
 
     /**
@@ -76,9 +74,8 @@ class RecipeController extends Controller
      * @param  \App\Models\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Recipe $recipe)
     {
-        $id = $request->route('recipe');
-        $this->recipeRepository->deleteItem($id);
+        $this->recipeRepository->deleteItem($recipe->id);
     }
 }
