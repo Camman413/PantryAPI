@@ -20,7 +20,7 @@ class InstructionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'recipe' => new RecipeResource(Recipe::findOrFail($this->recipe_id)),
+            'recipe' => $this->recipe_id,
             'rank' => $this->rank,
             'ingredient_id' => new IngredientResource(Ingredient::findOrFail($this->ingredient_id)),
             'ingredientAmount' => $this->ingredientAmount,

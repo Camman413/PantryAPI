@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Instruction;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RecipeResource extends JsonResource
@@ -17,6 +18,8 @@ class RecipeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'instructions' => InstructionResource::collection(Instruction::where('recipe_id', $this->id)->get()),
+
         ];
     }
 }
