@@ -48,9 +48,9 @@ class StockTypeController extends Controller
      * @param  \App\Models\StockType  $StockType
      * @return \Illuminate\Http\Response
      */
-    public function show(StockType $stockType)
+    public function show(StockType $stocktype)
     {
-        return new StockTypeResource($this->stockTypeRepository->getItemById($stockType->id));
+        return new StockTypeResource($this->stockTypeRepository->getItemById($stocktype->id));
     }
 
     /**
@@ -60,13 +60,13 @@ class StockTypeController extends Controller
      * @param  \App\Models\StockType  $StockType
      * @return \Illuminate\Http\Response
      */
-    public function update(stocktype $stockType, Request $request)
+    public function update(StockType $stocktype, Request $request)
     {
         $details = $request->only([
             'name'
         ]);
 
-        return new StockTypeResource($this->stockTypeRepository->updateItem($stockType->id, $details));
+        return new StockTypeResource($this->stockTypeRepository->updateItem($stocktype, $details));
 
     }
 
@@ -76,8 +76,8 @@ class StockTypeController extends Controller
      * @param  \App\Models\StockType  $StockType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StockType $stockType)
+    public function destroy(StockType $stocktype)
     {
-        $this->stockTypeRepository->deleteItem($stockType->id);
+        $this->stockTypeRepository->deleteItem($stocktype);
     }
 }

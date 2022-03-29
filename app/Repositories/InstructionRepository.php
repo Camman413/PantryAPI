@@ -9,19 +9,28 @@ class InstructionRepository extends Repository
     public function getAllItems(){
         return Instruction::all();
     }
-    public function getItemById(int $id){
+    public function getItemById(int $id):Instruction
+    {
         return Instruction::findOrFail($id);
     }
-    public function createItem(array $details)
+    public function createItem(array $details): Instruction
     {
         return Instruction::create($details);
     }
-    public function updateItem(int $id, array $details)
+
+    /**
+     * @param Instruction $instruction
+     */
+    public function updateItem(mixed $instruction, array $details): Instruction
     {
-        return Instruction::whereId($id)->update($details);
+        $instruction->update($details);
+        return $instruction->refresh();
     }
-    public function deleteItem(int $id)
+    /**
+     * @param Instruction $instruction
+     */
+    public function deleteItem(mixed $instruction)
     {
-        Instruction::destroy($id);
+        Instruction::destroy($instruction);
     }
 }

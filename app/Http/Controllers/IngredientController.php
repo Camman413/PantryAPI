@@ -70,7 +70,7 @@ class IngredientController extends Controller
             'stock_type_id'
         ]);
 
-        return new IngredientResource($this->ingredientRepository->updateItem($ingredient->id, $details));
+        return new IngredientResource($this->ingredientRepository->updateItem($ingredient, $details));
     }
 
     /**
@@ -81,6 +81,6 @@ class IngredientController extends Controller
      */
     public function destroy(Ingredient $ingredient)
     {
-        $this->ingredientRepository->deleteItem($ingredient->id);
+        $this->ingredientRepository->deleteItem($ingredient);
     }
 }

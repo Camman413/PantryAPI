@@ -68,7 +68,7 @@ class InstrumentController extends Controller
             'location_id',
         ]);
 
-        return new InstrumentResource($this->instrumentRepository->updateItem($instrument->id, $details));
+        return new InstrumentResource($this->instrumentRepository->updateItem($instrument, $details));
     }
 
     /**
@@ -79,6 +79,6 @@ class InstrumentController extends Controller
      */
     public function destroy(Instrument $instrument)
     {
-        $this->instrumentRepository->deleteItem($instrument->id);
+        $this->instrumentRepository->deleteItem($instrument);
     }
 }

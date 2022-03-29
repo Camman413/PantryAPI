@@ -16,12 +16,19 @@ class LocationRepository extends Repository
     {
         return Location::create($details);
     }
-    public function updateItem(int $id, array $details)
+    /**
+     * @param Location $location
+     */
+    public function updateItem(mixed $location, array $details)
     {
-        return Location::whereId($id)->update($details);
+        $location->update($details);
+        return $location->refresh();
     }
-    public function deleteItem(int $id)
+    /**
+     * @param Location $location
+     */
+    public function deleteItem(mixed $location)
     {
-        Location::destroy($id);
+        Location::destroy($location);
     }
 }

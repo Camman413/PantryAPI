@@ -66,7 +66,7 @@ class LocationController extends Controller
             'name'
         ]);
 
-        return new LocationResource($this->locationRepository->updateItem($location->id, $details));
+        return new LocationResource($this->locationRepository->updateItem($location, $details));
     }
 
     /**
@@ -77,6 +77,6 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
-        $this->locationRepository->deleteItem($location->id);
+        $this->locationRepository->deleteItem($location);
     }
 }

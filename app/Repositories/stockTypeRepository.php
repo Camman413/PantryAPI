@@ -9,19 +9,27 @@ class stockTypeRepository extends Repository
     public function getAllItems(){
         return StockType::all();
     }
-    public function getItemById(int $id){
+    public function getItemById(int $id): StockType
+    {
         return StockType::findOrFail($id);
     }
-    public function createItem(array $details)
+    public function createItem(array $details): StockType
     {
         return StockType::create($details);
     }
-    public function updateItem(int $id, array $details)
+    /**
+     * @param StockType $stockType
+     */
+    public function updateItem(mixed $stockType, array $details): StockType
     {
-        return StockType::whereId($id)->update($details);
+        $stockType->update($details);
+        return $stockType->refresh();
     }
-    public function deleteItem(int $id)
+    /**
+     * @param StockType $stockType
+     */
+    public function deleteItem(mixed $stockType)
     {
-        StockType::destroy($id);
+        StockType::destroy($stockType);
     }
 }

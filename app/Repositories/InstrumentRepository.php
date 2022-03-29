@@ -9,19 +9,27 @@ class InstrumentRepository extends Repository
     public function getAllItems(){
         return Instrument::all();
     }
-    public function getItemById(int $id){
+    public function getItemById(int $id): Instrument
+    {
         return Instrument::findOrFail($id);
     }
-    public function createItem(array $details)
+    /**
+     * @param Instrument $instrument
+     */
+    public function createItem(array $details): Instrument
     {
         return Instrument::create($details);
     }
-    public function updateItem(int $id, array $details)
+    /**
+     * @param Instrument $instrument
+     */
+    public function updateItem(mixed $instrument, array $details): Instrument
     {
-        return Instrument::whereId($id)->update($details);
+        $instrument->update($details);
+        return $instrument->refresh();
     }
-    public function deleteItem(int $id)
+    public function deleteItem(mixed $instrument)
     {
-        Instrument::destroy($id);
+        Instrument::destroy($instrument);
     }
 }

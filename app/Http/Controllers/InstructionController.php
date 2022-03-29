@@ -76,7 +76,7 @@ class InstructionController extends Controller
             'description',
         ]);
 
-        return new InstructionResource($this->instructionRepository->updateItem($instruction->id, $details));
+        return new InstructionResource($this->instructionRepository->updateItem($instruction, $details));
     }
 
     /**
@@ -87,6 +87,6 @@ class InstructionController extends Controller
      */
     public function destroy(Instruction $instruction)
     {
-        $this->instructionRepository->deleteItem($instruction->id);
+        $this->instructionRepository->deleteItem($instruction);
     }
 }

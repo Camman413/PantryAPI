@@ -16,12 +16,18 @@ class RecipeRepository extends Repository
     {
         return Recipe::create($details);
     }
-    public function updateItem(int $id, array $details)
+    /**
+     * @param Recipe $recipe
+     */
+    public function updateItem(mixed $recipe, array $details)
     {
-        return Recipe::whereId($id)->update($details);
+        return Recipe::whereId($recipe)->update($details);
     }
-    public function deleteItem(int $id)
+    /**
+     * @param Recipe $recipe
+     */
+    public function deleteItem(mixed $recipe)
     {
-        Recipe::destroy($id);
+        Recipe::destroy($recipe);
     }
 }

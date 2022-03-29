@@ -65,7 +65,7 @@ class RecipeController extends Controller
             'name'
         ]);
 
-        return new RecipeResource($this->recipeRepository->updateItem($recipe->id, $details));
+        return new RecipeResource($this->recipeRepository->updateItem($recipe, $details));
     }
 
     /**
@@ -76,6 +76,6 @@ class RecipeController extends Controller
      */
     public function destroy(Recipe $recipe)
     {
-        $this->recipeRepository->deleteItem($recipe->id);
+        $this->recipeRepository->deleteItem($recipe);
     }
 }

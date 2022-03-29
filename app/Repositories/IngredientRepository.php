@@ -6,22 +6,33 @@ use App\Models\Ingredient;
 
 class IngredientRepository extends Repository
 {
-    public function getAllItems(){
+    public function getAllItems()
+    {
         return Ingredient::all();
     }
-    public function getItemById(int $id){
+    public function getItemById(int $id): Ingredient
+    {
         return Ingredient::findOrFail($id);
     }
-    public function createItem(array $details)
+    public function createItem(array $details): Ingredient
     {
         return Ingredient::create($details);
     }
-    public function updateItem(int $id, array $details)
+
+    /**
+     * @param ingredient $ingredient
+     */
+
+    public function updateItem(mixed $ingredient, array $details): Ingredient
     {
-        return Ingredient::whereId($id)->update($details);
+        $ingredient->update($details);
+        return $ingredient->refresh();
     }
-    public function deleteItem(int $id)
+    /**
+     * @param ingredient $ingredient
+     */
+    public function deleteItem(mixed $ingredient)
     {
-        Ingredient::destroy($id);
+        Ingredient::destroy($ingredient);
     }
 }
