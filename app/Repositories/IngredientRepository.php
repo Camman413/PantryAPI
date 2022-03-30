@@ -33,6 +33,6 @@ class IngredientRepository extends Repository
      */
     public function deleteItem(mixed $ingredient)
     {
-        Ingredient::destroy($ingredient);
+        Ingredient::destroy($ingredient->id);
     }
 }
