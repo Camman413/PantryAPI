@@ -29,6 +29,6 @@ class LocationRepository extends Repository
      */
     public function deleteItem(mixed $location)
     {
-        Location::destroy($location);
+        Location::destroy($location->id);
     }
 }
