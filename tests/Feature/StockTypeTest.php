@@ -13,9 +13,9 @@ class StockTypeTest extends TestCase
     
     public function test_getOneStockType()
     {
-        StockType::factory()->create();
+        $stockType = StockType::factory()->create();
 
-        $response = $this->get('/api/stocktypes/1');
+        $response = $this->get('/api/stocktypes/'.$stockType->id);
 
         $response
             ->assertStatus(200)
@@ -26,7 +26,7 @@ class StockTypeTest extends TestCase
                         'data.id' => 'integer',
                         'data.name' => 'string',
                     ])
-                    ->where('data.id', 1)
+                    ->where('data.id', $stockType->id)
                     ->missing('data.1')
             );
     }
@@ -50,8 +50,6 @@ class StockTypeTest extends TestCase
     }
     
     public function test_createStockType(){
-        $stockType = StockType::factory()->create();
-
         $response = $this->postJson('/api/stocktypes', [
             'name' => 'test stock type',
         ]);

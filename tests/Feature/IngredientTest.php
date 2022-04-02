@@ -14,9 +14,9 @@ class IngredientTest extends TestCase
     
     public function test_getOneIngredient()
     {
-        Ingredient::factory()->for(StockType::factory())->create();
+        $ingredient = Ingredient::factory()->for(StockType::factory())->create();
 
-        $response = $this->get('/api/ingredients/1');
+        $response = $this->get('/api/ingredients/'.$ingredient->id);
 
         $response
             ->assertStatus(200)
@@ -31,7 +31,7 @@ class IngredientTest extends TestCase
                         'data.stock_type.id' => 'integer',
                         'data.stock_type.name' => 'string'
                     ])
-                    ->where('data.id', 1)
+                    ->where('data.id', $ingredient->id)
                     ->missing('data.1')
                     ->missing('data.stock_type.1')
             );
