@@ -30,6 +30,6 @@ class InstrumentRepository extends Repository
     }
     public function deleteItem(mixed $instrument)
     {
-        Instrument::destroy($instrument);
+        Instrument::destroy($instrument->id);
     }
 }
