@@ -30,6 +30,6 @@ class stockTypeRepository extends Repository
      */
     public function deleteItem(mixed $stockType)
     {
-        StockType::destroy($stockType);
+        StockType::destroy($stockType->id);
     }
 }
