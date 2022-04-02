@@ -31,6 +31,6 @@ class InstructionRepository extends Repository
      */
     public function deleteItem(mixed $instruction)
     {
-        Instruction::destroy($instruction);
+        Instruction::destroy($instruction->id);
     }
 }

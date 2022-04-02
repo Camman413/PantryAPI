@@ -20,11 +20,11 @@ class InstructionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'recipe' => $this->recipe_id,
+            'recipe_id' => $this->recipe_id,
             'rank' => $this->rank,
-            'ingredient_id' => new IngredientResource(Ingredient::findOrFail($this->ingredient_id)),
+            'ingredient' => new IngredientResource(Ingredient::findOrFail($this->ingredient_id)),
             'ingredientAmount' => $this->ingredientAmount,
-            'instrument_id' => new InstrumentResource(Instrument::findOrFail($this->instrument_id)),
+            'instrument' => new InstrumentResource(Instrument::findOrFail($this->instrument_id)),
             'description' => $this->description
         ];
     }
