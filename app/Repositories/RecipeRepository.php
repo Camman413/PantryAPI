@@ -21,13 +21,14 @@ class RecipeRepository extends Repository
      */
     public function updateItem(mixed $recipe, array $details)
     {
-        return Recipe::whereId($recipe)->update($details);
+        $recipe->update($details);
+        return $recipe->refresh();
     }
     /**
      * @param Recipe $recipe
      */
     public function deleteItem(mixed $recipe)
     {
-        Recipe::destroy($recipe);
+        Recipe::destroy($recipe->id);
     }
 }
